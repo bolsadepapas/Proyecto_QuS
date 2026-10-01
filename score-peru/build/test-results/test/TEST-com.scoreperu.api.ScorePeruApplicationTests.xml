@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.scoreperu.api.ScorePeruApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-01T21:36:08" hostname="Bolsadepapass-MacBook-Air.local" time="0.001">
+  <properties/>
+  <testcase name="contextLoads()" classname="com.scoreperu.api.ScorePeruApplicationTests" time="0.001"/>
+  <system-out><![CDATA[2026-10-01T16:36:08.113-05:00  INFO 3807 --- [score-peru] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.scoreperu.api.ScorePeruApplicationTests]: ScorePeruApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-01T16:36:08.113-05:00  INFO 3807 --- [score-peru] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.scoreperu.api.ScorePeruApplication for test class com.scoreperu.api.ScorePeruApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-10-01T16:36:08.127-05:00  INFO 3807 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : Starting ScorePeruApplicationTests using Java 21.0.12.1 with PID 3807 (started by bolsadepapas in /Users/bolsadepapas/Desktop/score-peru)
+2026-10-01T16:36:08.127-05:00  INFO 3807 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2026-10-01T16:36:08.213-05:00  INFO 3807 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : Started ScorePeruApplicationTests in 0.098 seconds (process running for 1.484)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
