@@ -4,27 +4,15 @@ Este documento detalla el informe técnico de entrega correspondiente a la **Fas
 
 ---
 
-## 📌 Modelo de Reglas y Algoritmo de Scoring (RF02)
+##  Modelo de Reglas y Algoritmo de Scoring (RF02)
 El algoritmo para **RF02** es un motor de reglas con puntaje ponderado (**scoring con base inicial de 100 puntos**):
 - **Puntaje Inicial**: Todas las empresas inician con **100 pts** (Score Óptimo / Riesgo **BAJO**).
 - **Penalizaciones (Descuento de Puntos)**: Cada regla evalúa una condición sobre los datos del contribuyente y, si se cumple, **descuenta puntos de score**.
-- **Puntaje Final (0 a 100)**: `Score = max(0, 100 - penalizaciones_acumuladas)`.
+- **Puntaje Final (0 a 100)**: `Score = max(100 - penalizaciones_acumuladas)`.
   * **0 puntos**: Representa la **peor de las empresas** (Riesgo **ALTO**).
   * **Score $\ge$ 80**: Nivel de Riesgo **BAJO**.
   * **50 $\le$ Score $<$ 80**: Nivel de Riesgo **MEDIO**.
   * **Score $<$ 50**: Nivel de Riesgo **ALTO**.
-
-### Tabla de Reglas Ponderadas:
-| ID | Regla | Condición | Puntos | Límite |
-|---|---|---|---|---|
-| **R01** | Estado del contribuyente | Estado distinto de ACTIVO (baja, suspensión) | **- 40** | |
-| **R02** | Condición de domicilio | NO HABIDO / NO HALLADO | **- 25 / - 10** | |
-| **R03** | Sanciones recientes | Cada sanción en los últimos 12 meses | **- 10** | Tope 30 |
-| **R04** | Sanciones antiguas | Cada sanción entre 13 y 36 meses | **- 5** | Tope 15 |
-| **R05** | Reincidencia | 3 o más sanciones, o infracción repetida | **- 10** | |
-| **R06** | Gravedad económica | Multas acumuladas mayores a 5 UIT | **- 10** | |
-| **R07** | Antigüedad | Inicio de actividades menor a 6 meses | **- 10** | |
-| **R08** | Inhabilitación vigente | Aparece como inhabilitado | **- 30** | |
 
 ---
 
@@ -145,8 +133,8 @@ public interface ClienteConsultaExterna {
 
 | Criterio de Evaluación | Diseño Anterior (Monolítico if-else) | Diseño Refactorizado (Strategy + Componentes) |
 |---|---|---|
-| **Archivos modificados vs. creados** | 🔴 **1 archivo modificado:** Modificación intrusiva de `MotorScoringService.java`. | 🟢 **1 archivo nuevo creado / 0 modificados:** Creación de `ReglaOmisionesTributarias.java` (`@Component implements ReglaScoring`). |
-| **Cumplimiento de OCP** | ❌ **Violado:** La clase central debía ser reabierta y alterada. | ✅ **Cumplido al 100%:** Abierto para extensión e inmutable en el motor. |
-| **Riesgo de regresión** | ⚠️ **Alto:** Riesgo de alterar el orden de evaluación o cálculo de otras reglas. | 🛡️ **Nulo:** Reglas existentes aisladas e intactas. |
-| **Impacto en pruebas unitarias** | ⚠️ **Alto:** Reescritura de tests unitarios de `MotorScoringServiceTest`. | ⚡ **Bajo y Aislado:** Creación exclusiva de `ReglaOmisionesTributariasTest.java`. |
-| **Tiempo de implementación** | ⏱️ **4 a 6 horas:** Codificación y re-ejecución total de regresiones. | 🚀 **30 a 45 minutos:** Creación del nuevo componente con despliegue inmediato. |
+| **Archivos modificados vs. creados** |  **1 archivo modificado:** Modificación intrusiva de `MotorScoringService.java`. | **1 archivo nuevo creado / 0 modificados:** Creación de `ReglaOmisionesTributarias.java` (`@Component implements ReglaScoring`). |
+| **Cumplimiento de OCP** |La clase central debía ser reabierta y alterada. |  Abierto para extensión e inmutable en el motor. |
+| **Riesgo de regresión** | Riesgo de alterar el orden de evaluación o cálculo de otras reglas. |  Reglas existentes aisladas e intactas. |
+| **Impacto en pruebas unitarias** | Reescritura de tests unitarios de `MotorScoringServiceTest`. |  Creación exclusiva de `ReglaOmisionesTributariasTest.java`. |
+
