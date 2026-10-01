@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.scoreperu.api.service.ConsultaRucServiceTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-01T23:11:58" hostname="Bolsadepapass-MacBook-Air.local" time="0.095">
+  <properties/>
+  <testcase name="Empresa con sanción reciente descuenta 10 puntos (Score 90, Riesgo BAJO)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.084"/>
+  <testcase name="Empresa con estado NO ACTIVO descuenta 40 puntos (Score 60, Riesgo MEDIO)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.001"/>
+  <testcase name="Debe lanzar RucInvalidoException si el RUC no cumple formato" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.002"/>
+  <testcase name="Empresa sin observaciones debe iniciar con 100 puntos y Nivel de Riesgo BAJO" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.003"/>
+  <testcase name="La peor de las empresas acumula penalizaciones y queda con 0 puntos (Riesgo ALTO)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

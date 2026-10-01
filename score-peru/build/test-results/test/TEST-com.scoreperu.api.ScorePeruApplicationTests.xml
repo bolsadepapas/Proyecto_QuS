@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.scoreperu.api.ScorePeruApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-01T21:36:08" hostname="Bolsadepapass-MacBook-Air.local" time="0.001">
+<testsuite name="com.scoreperu.api.ScorePeruApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-01T23:11:57" hostname="Bolsadepapass-MacBook-Air.local" time="0.382">
   <properties/>
-  <testcase name="contextLoads()" classname="com.scoreperu.api.ScorePeruApplicationTests" time="0.001"/>
-  <system-out><![CDATA[2026-10-01T16:36:08.113-05:00  INFO 3807 --- [score-peru] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.scoreperu.api.ScorePeruApplicationTests]: ScorePeruApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-01T16:36:08.113-05:00  INFO 3807 --- [score-peru] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.scoreperu.api.ScorePeruApplication for test class com.scoreperu.api.ScorePeruApplicationTests
+  <testcase name="contextLoads()" classname="com.scoreperu.api.ScorePeruApplicationTests" time="0.382"/>
+  <system-out><![CDATA[18:11:57.075 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.scoreperu.api.ScorePeruApplicationTests]: ScorePeruApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:11:57.109 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.scoreperu.api.ScorePeruApplication for test class com.scoreperu.api.ScorePeruApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -13,9 +13,13 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.5)
 
-2026-10-01T16:36:08.127-05:00  INFO 3807 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : Starting ScorePeruApplicationTests using Java 21.0.12.1 with PID 3807 (started by bolsadepapas in /Users/bolsadepapas/Desktop/score-peru)
-2026-10-01T16:36:08.127-05:00  INFO 3807 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : No active profile set, falling back to 1 default profile: "default"
-2026-10-01T16:36:08.213-05:00  INFO 3807 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : Started ScorePeruApplicationTests in 0.098 seconds (process running for 1.484)
+2026-10-01T18:11:57.245-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : Starting ScorePeruApplicationTests using Java 21.0.12.1 with PID 9367 (started by bolsadepapas in /Users/bolsadepapas/Desktop/Proyecto_QuS/score-peru)
+2026-10-01T18:11:57.245-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2026-10-01T18:11:57.664-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : Started ScorePeruApplicationTests in 0.509 seconds (process running for 0.941)
 ]]></system-out>
-  <system-err><![CDATA[]]></system-err>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/Users/bolsadepapas/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.14.13/979ce25f7d3096a2e82214ba7dc972a05ce7a171/byte-buddy-agent-1.14.13.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
 </testsuite>

@@ -1,4 +1,4 @@
-package com.scoreperu.api;
+package com.scoreperu.api.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,31 +15,32 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@SuppressWarnings("null")
 class ConsultaControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    @DisplayName("GET /api/v1/consulta/{ruc} con RUC par debe retornar riesgo BAJO (0 pts)")
-    void testGetRucParRiesgoBajo() throws Exception {
+    @DisplayName("GET /api/v1/consulta/{ruc} con RUC par debe retornar score 100 y riesgo BAJO")
+    void testGetRucParScore100RiesgoBajo() throws Exception {
         mockMvc.perform(get("/api/v1/consulta/20123456780"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.ruc").value("20123456780"))
-                .andExpect(jsonPath("$.puntajeRiesgo").value(0))
+                .andExpect(jsonPath("$.puntajeRiesgo").value(100))
                 .andExpect(jsonPath("$.nivelRiesgo").value("BAJO"))
                 .andExpect(jsonPath("$.reglasActivadas", empty()));
     }
 
     @Test
-    @DisplayName("GET /api/v1/consulta/{ruc} con RUC impar debe retornar riesgo ALTO (80 pts)")
-    void testGetRucImparRiesgoAlto() throws Exception {
+    @DisplayName("GET /api/v1/consulta/{ruc} con RUC impar debe descontar puntos por sanción")
+    void testGetRucImparConSancion() throws Exception {
         mockMvc.perform(get("/api/v1/consulta/10123456781"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.ruc").value("10123456781"))
-                .andExpect(jsonPath("$.puntajeRiesgo").value(80))
-                .andExpect(jsonPath("$.nivelRiesgo").value("ALTO"))
-                .andExpect(jsonPath("$.reglasActivadas", hasItem("Sanción registrada en INDECOPI")));
+                .andExpect(jsonPath("$.puntajeRiesgo").value(90))
+                .andExpect(jsonPath("$.nivelRiesgo").value("BAJO"))
+                .andExpect(jsonPath("$.reglasActivadas", hasItem(containsString("R03"))));
     }
 
     @Test
@@ -52,7 +53,7 @@ class ConsultaControllerTest {
                         .content(jsonRequest))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.ruc").value("20600012342"))
-                .andExpect(jsonPath("$.puntajeRiesgo").value(0))
+                .andExpect(jsonPath("$.puntajeRiesgo").value(100))
                 .andExpect(jsonPath("$.nivelRiesgo").value("BAJO"));
     }
 

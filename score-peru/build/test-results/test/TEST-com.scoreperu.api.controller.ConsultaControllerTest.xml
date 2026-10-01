@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.scoreperu.api.controller.ConsultaControllerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-01T23:11:58" hostname="Bolsadepapass-MacBook-Air.local" time="0.093">
+  <properties/>
+  <testcase name="GET /api/v1/consulta/{ruc} con RUC que no inicia con 10 o 20 debe retornar 400 Bad Request" classname="com.scoreperu.api.controller.ConsultaControllerTest" time="0.052"/>
+  <testcase name="POST /api/v1/consulta con RUC válido debe procesar correctamente" classname="com.scoreperu.api.controller.ConsultaControllerTest" time="0.033"/>
+  <testcase name="GET /api/v1/consulta/{ruc} con RUC impar debe descontar puntos por sanción" classname="com.scoreperu.api.controller.ConsultaControllerTest" time="0.002"/>
+  <testcase name="GET /api/v1/consulta/{ruc} con RUC inválido (&lt;11 dígitos) debe retornar 400 Bad Request" classname="com.scoreperu.api.controller.ConsultaControllerTest" time="0.002"/>
+  <testcase name="GET /api/v1/consulta/{ruc} con RUC par debe retornar score 100 y riesgo BAJO" classname="com.scoreperu.api.controller.ConsultaControllerTest" time="0.002"/>
+  <system-out><![CDATA[2026-10-01T18:11:58.054-05:00  INFO 9367 --- [score-peru] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.scoreperu.api.controller.ConsultaControllerTest]: ConsultaControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-10-01T18:11:58.060-05:00  INFO 9367 --- [score-peru] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.scoreperu.api.ScorePeruApplication for test class com.scoreperu.api.controller.ConsultaControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.5)
+
+2026-10-01T18:11:58.072-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.a.controller.ConsultaControllerTest  : Starting ConsultaControllerTest using Java 21.0.12.1 with PID 9367 (started by bolsadepapas in /Users/bolsadepapas/Desktop/Proyecto_QuS/score-peru)
+2026-10-01T18:11:58.073-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.a.controller.ConsultaControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2026-10-01T18:11:58.167-05:00  INFO 9367 --- [score-peru] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-10-01T18:11:58.167-05:00  INFO 9367 --- [score-peru] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-10-01T18:11:58.168-05:00  INFO 9367 --- [score-peru] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2026-10-01T18:11:58.171-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.a.controller.ConsultaControllerTest  : Started ConsultaControllerTest in 0.11 seconds (process running for 1.448)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

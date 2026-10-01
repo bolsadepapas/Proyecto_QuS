@@ -1,53 +1,48 @@
 package com.scoreperu.api.service;
 
+import com.scoreperu.api.client.ClienteConsultaExterna;
 import com.scoreperu.api.dto.ResponseReporteRiesgo;
 import com.scoreperu.api.exception.RucInvalidoException;
+import com.scoreperu.api.model.Contribuyente;
+import com.scoreperu.api.model.Sancion;
+import com.scoreperu.api.scoring.MotorScoringService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class ConsultaRucService {
+
+    private final ClienteConsultaExterna clienteConsultaExterna;
+    private final MotorScoringService motorScoringService;
+
+    public ConsultaRucService(ClienteConsultaExterna clienteConsultaExterna,
+                              MotorScoringService motorScoringService) {
+        this.clienteConsultaExterna = clienteConsultaExterna;
+        this.motorScoringService = motorScoringService;
+    }
 
     public ResponseReporteRiesgo consultarScoringRuc(String ruc) {
         validarRuc(ruc);
 
         String rucLimpio = ruc.trim();
 
-        // Determinación de tipo de contribuyente simulado para razón social
-        String razonSocial = rucLimpio.startsWith("20") 
-                ? "CORPORACION PERUANA DE SERVICIOS S.A.C." 
-                : "JUAN PEREZ ROJAS";
-        String estado = "ACTIVO";
-        String condicion = "HABIDO";
+        // 1. Obtención de datos mediante interfaz desacoplada (DIP)
+        Contribuyente contribuyente = clienteConsultaExterna.obtenerDatosSunat(rucLimpio);
+        List<Sancion> sanciones = clienteConsultaExterna.obtenerSancionesIndecopi(rucLimpio);
 
-        // Scoring simulado según el último dígito
-        int ultimoDigito = Character.getNumericValue(rucLimpio.charAt(rucLimpio.length() - 1));
-        boolean esPar = (ultimoDigito % 2 == 0);
+        // 2. Evaluación dinámica a través del Motor de Scoring (Base 100 - penalizaciones)
+        MotorScoringService.ResultadoScoring resultadoScoring = motorScoringService.evaluar(contribuyente, sanciones);
 
-        int puntajeRiesgo;
-        String nivelRiesgo;
-        List<String> reglasActivadas;
-
-        if (esPar) {
-            puntajeRiesgo = 0;
-            nivelRiesgo = "BAJO";
-            reglasActivadas = Collections.emptyList();
-        } else {
-            puntajeRiesgo = 80;
-            nivelRiesgo = "ALTO";
-            reglasActivadas = List.of("Sanción registrada en INDECOPI");
-        }
-
+        // 3. Mapeo al reporte de riesgo
         return new ResponseReporteRiesgo(
-                rucLimpio,
-                razonSocial,
-                estado,
-                condicion,
-                puntajeRiesgo,
-                nivelRiesgo,
-                reglasActivadas
+                contribuyente.ruc(),
+                contribuyente.razonSocial(),
+                contribuyente.estado(),
+                contribuyente.condicion(),
+                resultadoScoring.scoreFinal(),
+                resultadoScoring.nivelRiesgo(),
+                resultadoScoring.reglasActivadas()
         );
     }
 
@@ -57,7 +52,6 @@ public class ConsultaRucService {
         }
 
         String rucLimpio = ruc.trim();
-
         if (rucLimpio.length() != 11 || !rucLimpio.matches("\\d{11}")) {
             throw new RucInvalidoException("El RUC debe tener exactamente 11 dígitos numéricos.");
         }
