@@ -48,8 +48,8 @@ public class MotorScoringService {
     }
 
     public record ResultadoScoring(
-        int scoreFinal,
-        String nivelRiesgo,
-        List<String> reglasActivadas
-    ) {}
+            int scoreFinal,
+            String nivelRiesgo,
+            List<String> reglasActivadas) {
+    }
 }
