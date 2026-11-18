@@ -1,0 +1,11 @@
+{
+  "name": "proyecto-qus-workspace",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix score-peru-frontend start",
+    "build": "npm --prefix score-peru-frontend run build",
+    "install:front": "npm --prefix score-peru-frontend install"
+  }
+}
+

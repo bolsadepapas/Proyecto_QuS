@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">5</div>
+<div class="counter">9</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.091s</div>
+<div class="counter">0.208s</div>
 <p>duration</p>
 </div>
 </td>
@@ -63,6 +63,9 @@
 <li>
 <a href="#tab0">Tests</a>
 </li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
 </ul>
 <div id="tab0" class="tab">
 <h2>Tests</h2>
@@ -76,20 +79,32 @@
 </tr>
 </thead>
 <tr>
+<td class="success">RFO-02: Refresca datos y actualiza DB cuando la caché superó los 6 días (CACHE EXPIRADO)</td>
+<td class="success">testCacheExpiradoRefrescaYActualizaDB()</td>
+<td class="success">0.001s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">RFO-02: Retorna datos de caché cuando existe y tiene menos de 6 días (CACHE HIT)</td>
+<td class="success">testCacheHitNoInvocaClienteExterno()</td>
+<td class="success">0.006s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">RFO-02: Invoca cliente externo y guarda en DB cuando no existe en caché (CACHE MISS)</td>
+<td class="success">testCacheMissInvocaClienteExternoYGuardaEnDB()</td>
+<td class="success">0.004s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
 <td class="success">Empresa con sanción reciente descuenta 10 puntos (Score 90, Riesgo BAJO)</td>
 <td class="success">testEmpresaConSancionRecienteDescuenta10()</td>
-<td class="success">0.084s</td>
+<td class="success">0.187s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">Empresa con estado NO ACTIVO descuenta 40 puntos (Score 60, Riesgo MEDIO)</td>
 <td class="success">testEmpresaNoActivaDescuenta40()</td>
-<td class="success">0.001s</td>
-<td class="success">passed</td>
-</tr>
-<tr>
-<td class="success">Empresa sin observaciones debe iniciar con 100 puntos y Nivel de Riesgo BAJO</td>
-<td class="success">testEmpresaOptimaScore100RiesgoBajo()</td>
 <td class="success">0.003s</td>
 <td class="success">passed</td>
 </tr>
@@ -100,12 +115,47 @@
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">Debe lanzar RucInvalidoException si el RUC no cumple formato</td>
-<td class="success">testValidacionRucInvalido()</td>
+<td class="success">Regla R03 acumula 10 puntos por cada sanción reciente hasta el tope máximo de 30 puntos</td>
+<td class="success">testReglaR03AcumulaPorSancionConTope30()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">Consume directamente obtenerDatosIntegrados (/api/v1/consulta/{ruc}) en una sola llamada cuando está disponible</td>
+<td class="success">testUsaEndpointParaleloIntegradoEnUnaSolaLlamada()</td>
+<td class="success">0.002s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">Debe permitir prefijos 15 y 17 con Módulo 11 válido y rechazar RUCs con formato o dígito verificador inválido</td>
+<td class="success">testValidacionRucModulo11YPrefijos()</td>
 <td class="success">0.002s</td>
 <td class="success">passed</td>
 </tr>
 </table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2026-11-17T16:57:32.223-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 10456789124. Despachando consulta asíncrona...
+2026-11-17T16:57:32.228-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Nuevo Registro de Caché GUARDADO para RUC: 10456789124
+2026-11-17T16:57:32.235-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE HIT para RUC 20123456786 (Registrado: 2026-11-15T16:57:32.234601)
+2026-11-17T16:57:32.241-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 20555666978. Despachando consulta asíncrona...
+2026-11-17T16:57:32.242-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Nuevo Registro de Caché GUARDADO para RUC: 20555666978
+2026-11-17T16:57:32.244-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 20100190797. Despachando consulta asíncrona...
+2026-11-17T16:57:32.244-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Nuevo Registro de Caché GUARDADO para RUC: 20100190797
+2026-11-17T16:57:32.247-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 20123456786. Despachando consulta asíncrona...
+2026-11-17T16:57:32.247-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Registro de Caché ACTUALIZADO para RUC: 20123456786
+2026-11-17T16:57:32.249-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 20123456786. Despachando consulta asíncrona...
+2026-11-17T16:57:32.250-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Nuevo Registro de Caché GUARDADO para RUC: 20123456786
+2026-11-17T16:57:32.255-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 20100190797. Despachando consulta asíncrona...
+2026-11-17T16:57:32.255-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Nuevo Registro de Caché GUARDADO para RUC: 20100190797
+2026-11-17T16:57:32.257-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 20999888781. Despachando consulta asíncrona...
+2026-11-17T16:57:32.257-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Nuevo Registro de Caché GUARDADO para RUC: 20999888781
+2026-11-17T16:57:32.258-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 15123456782. Despachando consulta asíncrona...
+2026-11-17T16:57:32.259-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Nuevo Registro de Caché GUARDADO para RUC: 15123456782
+</pre>
+</span>
 </div>
 </div>
 <div id="footer">
@@ -115,7 +165,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.8</a> at 1 oct. 2026 18:11:58</p>
+<a href="http://www.gradle.org">Gradle 8.8</a> at 17 nov. 2026 16:57:32</p>
 </div>
 </div>
 </body>

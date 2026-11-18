@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
+@SuppressWarnings("null")
 public class ManejadorGlobalAdvice {
 
     @ExceptionHandler(RucInvalidoException.class)

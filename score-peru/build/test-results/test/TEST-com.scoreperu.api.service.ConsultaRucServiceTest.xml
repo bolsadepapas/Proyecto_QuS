@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.scoreperu.api.service.ConsultaRucServiceTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-10-01T23:11:58" hostname="Bolsadepapass-MacBook-Air.local" time="0.095">
+<testsuite name="com.scoreperu.api.service.ConsultaRucServiceTest" tests="9" skipped="0" failures="0" errors="0" timestamp="2026-11-17T21:57:32" hostname="Bolsadepapass-MacBook-Air.local" time="0.216">
   <properties/>
-  <testcase name="Empresa con sanción reciente descuenta 10 puntos (Score 90, Riesgo BAJO)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.084"/>
-  <testcase name="Empresa con estado NO ACTIVO descuenta 40 puntos (Score 60, Riesgo MEDIO)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.001"/>
-  <testcase name="Debe lanzar RucInvalidoException si el RUC no cumple formato" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.002"/>
-  <testcase name="Empresa sin observaciones debe iniciar con 100 puntos y Nivel de Riesgo BAJO" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.003"/>
+  <testcase name="Empresa con sanción reciente descuenta 10 puntos (Score 90, Riesgo BAJO)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.187"/>
+  <testcase name="RFO-02: Retorna datos de caché cuando existe y tiene menos de 6 días (CACHE HIT)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.006"/>
+  <testcase name="Empresa con estado NO ACTIVO descuenta 40 puntos (Score 60, Riesgo MEDIO)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.003"/>
+  <testcase name="Consume directamente obtenerDatosIntegrados (/api/v1/consulta/{ruc}) en una sola llamada cuando está disponible" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.002"/>
+  <testcase name="RFO-02: Refresca datos y actualiza DB cuando la caché superó los 6 días (CACHE EXPIRADO)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.001"/>
+  <testcase name="RFO-02: Invoca cliente externo y guarda en DB cuando no existe en caché (CACHE MISS)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.004"/>
+  <testcase name="Regla R03 acumula 10 puntos por cada sanción reciente hasta el tope máximo de 30 puntos" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.002"/>
   <testcase name="La peor de las empresas acumula penalizaciones y queda con 0 puntos (Riesgo ALTO)" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="Debe permitir prefijos 15 y 17 con Módulo 11 válido y rechazar RUCs con formato o dígito verificador inválido" classname="com.scoreperu.api.service.ConsultaRucServiceTest" time="0.002"/>
+  <system-out><![CDATA[2026-11-17T16:57:32.223-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> CACHE MISS / EXPIRADO para RUC 10456789124. Despachando consulta asíncrona...
+2026-11-17T16:57:32.228-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> Nuevo Registro de Caché GUARDADO para RUC: 10456789124
+2026-11-17T16:57:32.235-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> CACHE HIT para RUC 20123456786 (Registrado: 2026-11-15T16:57:32.234601)
+2026-11-17T16:57:32.241-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> CACHE MISS / EXPIRADO para RUC 20555666978. Despachando consulta asíncrona...
+2026-11-17T16:57:32.242-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> Nuevo Registro de Caché GUARDADO para RUC: 20555666978
+2026-11-17T16:57:32.244-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> CACHE MISS / EXPIRADO para RUC 20100190797. Despachando consulta asíncrona...
+2026-11-17T16:57:32.244-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> Nuevo Registro de Caché GUARDADO para RUC: 20100190797
+2026-11-17T16:57:32.247-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> CACHE MISS / EXPIRADO para RUC 20123456786. Despachando consulta asíncrona...
+2026-11-17T16:57:32.247-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> Registro de Caché ACTUALIZADO para RUC: 20123456786
+2026-11-17T16:57:32.249-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> CACHE MISS / EXPIRADO para RUC 20123456786. Despachando consulta asíncrona...
+2026-11-17T16:57:32.250-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> Nuevo Registro de Caché GUARDADO para RUC: 20123456786
+2026-11-17T16:57:32.255-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> CACHE MISS / EXPIRADO para RUC 20100190797. Despachando consulta asíncrona...
+2026-11-17T16:57:32.255-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> Nuevo Registro de Caché GUARDADO para RUC: 20100190797
+2026-11-17T16:57:32.257-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> CACHE MISS / EXPIRADO para RUC 20999888781. Despachando consulta asíncrona...
+2026-11-17T16:57:32.257-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> Nuevo Registro de Caché GUARDADO para RUC: 20999888781
+2026-11-17T16:57:32.258-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> CACHE MISS / EXPIRADO para RUC 15123456782. Despachando consulta asíncrona...
+2026-11-17T16:57:32.259-05:00  INFO 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : >>> Nuevo Registro de Caché GUARDADO para RUC: 15123456782
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

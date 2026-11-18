@@ -1,7 +1,7 @@
 # ADR-001: Rediseño del Motor de Scoring mediante el Patrón Strategy e Inyección de Dependencias
 
-* **Estatus:** Aprobado e Implementado
-* **Fecha:** Octubre 2026
+* **Estatus:** Aprobado, Implementado y Actualizado
+* **Fecha:** Octubre 2026 (Actualización: Noviembre 2026)
 * **Proyecto:** Score Perú — App Web de Transparencia Comercial
 * **Autores:** Equipo de Desarrollo Score Perú
 
@@ -65,14 +65,66 @@ El motor de scoring fue refactorizado para operar sobre la abstracción `ReglaSc
 
 ---
 
-## 6. Evidencias de Validación
+## 6. Actualización de Implementación (Noviembre 2026)
 
-### Ejecución de Pruebas Unitarias
-Se validó la refactorización mediante la ejecución del suite de pruebas aisladas con Gradle (`./gradlew test`), obteniendo una tasa de éxito del 100%:
+Sobre la base del diseño Strategy y desacoplamiento por capas, se incorporaron las siguientes mejoras arquitectónicas y de calidad entre el backend Java (`score-peru`), el microservicio Python (`Api QuS`) y el frontend Angular (`score-peru-frontend`):
+
+1. **Penalización Dinámica en `ReglaScoring` (Regla R03):**
+   * Se añadió el método por defecto `calcularPenalizacion(Contribuyente, List<Sancion>)` en `ReglaScoring.java` y se actualizó `MotorScoringService` para invocarlo tanto en la evaluación como en la reconstrucción de caché.
+   * `ReglaSancionIndecopi` calcula ahora la penalización proporcional a las sanciones de los últimos 12 meses (`Math.min(30, sancionRecienteCount * 10)`), respetando el tope máximo de 30 puntos.
+2. **Consumo Paralelo Integrado (`Api QuS` + `CompletableFuture`):**
+   * `ClienteConsultaExternaRest` implementa `obtenerDatosIntegrados(ruc)` consumiendo en una sola llamada HTTP el endpoint paralelo `/api/v1/consulta/{ruc}` de `Api QuS`.
+   * Cuando el adaptador usa implementaciones individuales, `ConsultaRucService` ejecuta `obtenerDatosSunat` y `obtenerSancionesIndecopi` en paralelo mediante `CompletableFuture.allOf(...)` sobre hilos virtuales de Java 21.
+3. **Validación Simétrica de RUC (Módulo 11 + Prefijos `10, 15, 17, 20`):**
+   * Se unificó la validación oficial de SUNAT (prefijos `10`, `15`, `17`, `20` y dígito verificador Módulo 11) en `ConsultaRucService.validarRuc()` (Java), `app/core/validator.py` (Python) y `ruc-validator.ts` (Angular).
+4. **Agregación en Base de Datos para el Dashboard Nacional:**
+   * Se reemplazó `findAll()` en `DashboardController` por consultas JPQL/SQL dedicadas (`@Query` con `COUNT`, `AVG` y `GROUP BY`) en `ConsultaRucRepository`, evitando cargar toda la tabla `consultas_ruc_cache` y deserializar JSON en memoria JVM.
+5. **Modularización del Frontend (Standalone + Lazy Loading):**
+   * Se descompuso el antiguo componente monolítico `AppComponent` en vistas independientes (`SearchComponent`, `ResultComponent`, `ReportPrintComponent`, `DashboardComponent`) cargadas bajo demanda con `loadComponent` en el router de Angular 19.
+6. **Seguridad de Credenciales OAuth 2.0:**
+   * Se eliminaron las credenciales en texto plano de `Api QuS/app/config.py` y `Api QuS/README.md`, cargándolas exclusivamente desde variables de entorno (`.env`) con plantilla segura en `.env.example`.
+
+---
+## 7. Evidencias de Validación
+
+### 7.1. Servidor Principal (Java — `./gradlew test`)
+Se ejecutó la batería completa de pruebas automáticas para comprobar que las reglas de negocio, el guardado temporal de consultas y la atención a múltiples usuarios al mismo tiempo funcionen sin fallas:
 
 ```text
+> Task :compileJava
+> Task :compileTestJava
 > Task :test
-com.scoreperu.api.service.ConsultaRucServiceTest > debeEvaluarRiesgoAltoCuandoContribuyenteNoEstaActivo() PASSED
 
-BUILD SUCCESSFUL in 822ms
-4 actionable tasks: 4 up-to-date
+BUILD SUCCESSFUL in 10s
+5 actionable tasks: 3 executed, 2 up-to-date
+```
+
+* **Qué se comprobó en la práctica:**
+  * **Cálculo exacto del puntaje:** Si una empresa tiene varias multas recientes en INDECOPI, se descuentan 10 puntos por cada una hasta un máximo de 30 puntos, y se aplican correctamente las alertas de SUNAT.
+  * **Respuestas rápidas y ahorro de consultas:** Cuando alguien busca un RUC que ya se consultó hace menos de 6 días, el sistema responde de inmediato con el dato guardado en lugar de volver a esperar a las páginas del Estado.
+  * **Resistencia con muchos usuarios:** Se simuló a **50 personas consultando al mismo tiempo** y todas recibieron respuesta sin errores y muy por debajo del límite de 2.5 segundos.
+
+### 7.2. Conector con SUNAT e INDECOPI (Python — `pytest`)
+Se ejecutaron 13 pruebas automáticas sobre el servicio que se conecta a las fuentes públicas del Estado:
+
+```text
+13 passed, 1 warning in 0.45s
+```
+
+* **Qué se comprobó en la práctica:**
+  * **Filtro de RUC auténticos:** El sistema verifica matemáticamente que el número de 11 dígitos sea válido (ya sea de persona natural con negocio o de empresa) y rechaza de inmediato cualquier RUC inventado o mal escrito.
+  * **Conexión real con SUNAT e INDECOPI:** Se comprobó que el sistema recibe correctamente los datos tributarios y las sanciones oficiales y los entrega ordenados al servidor principal.
+
+### 7.3. Página Web para el Usuario (Angular — `ng build`)
+Se generó la versión final de la página web lista para publicar, comprobando que no tenga errores visuales ni archivos pesados:
+
+```text
+✔ Browser application bundle generation complete.
+✔ Index html generation complete.
+Initial total: 319.13 kB (Estimated transfer size: 90.26 kB)
+Lazy chunks: search-component, result-component, report-print-component, dashboard-component
+```
+
+* **Qué se comprobó en la práctica:**
+  * **Carga rápida desde cualquier dispositivo:** La pantalla inicial pesa apenas **90.26 KB** al descargarse, por lo que abre rápido incluso con internet móvil.
+  * **Carga por partes:** Cada pantalla (búsqueda, resultado, reporte PDF y tablero nacional) se descarga solo cuando el usuario entra a ella, evitando esperas innecesarias al abrir la aplicación.

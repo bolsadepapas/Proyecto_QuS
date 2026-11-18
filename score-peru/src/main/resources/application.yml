@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: score-peru
+  profiles:
+    default: local
+
+  # Habilitación de Virtual Threads de Java 21 (Project Loom)
+  threads:
+    virtual:
+      enabled: true
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/scoreperu_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgrespassword}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
+    hikari:
+      pool-name: ScorePeruHikariPool
+      maximum-pool-size: 30
+      minimum-idle: 10
+      idle-timeout: 300000
+      connection-timeout: 20000
+      max-lifetime: 1200000
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: false
+        jdbc:
+          batch_size: 25
+
+server:
+  port: 8080
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 20
+
+# Parámetros del Negocio (RFO-02)
+app:
+  cache:
+    ttl-dias: 6
+  cliente:
+    externo:
+      modo: ${APP_CLIENTE_EXTERNO_MODO:simulado} # Opciones: 'simulado' o 'rest'
+      url-base: ${API_QUS_URL:http://localhost:8000}
+

@@ -12,25 +12,46 @@ import java.util.List;
 public class ReglaSancionIndecopi implements ReglaScoring {
 
     private static final String NOMBRE_REGLA = "R03 - Sanciones recientes registradas en INDECOPI (-10 pts c/u, tope 30)";
+    private static final int PUNTOS_POR_SANCION = 10;
+    private static final int TOPE_PENALIZACION = 30;
 
     @Override
     public boolean aplica(Contribuyente contribuyente, List<Sancion> sanciones) {
-        if (sanciones == null || sanciones.isEmpty()) {
-            return false;
-        }
-        LocalDate hace12Meses = LocalDate.now().minusMonths(12);
-        return sanciones.stream()
-                .anyMatch(s -> s.fechaSancion() != null && s.fechaSancion().isAfter(hace12Meses));
+        return contarSancionesRecientes(sanciones) > 0;
     }
 
     @Override
     public int getPuntosPenalizacion() {
-        // En base a la tabla: -10 pts por sanción reciente
-        return 10;
+        // Penalización base por sanción reciente individual
+        return PUNTOS_POR_SANCION;
+    }
+
+    @Override
+    public int calcularPenalizacion(Contribuyente contribuyente, List<Sancion> sanciones) {
+        int sancionRecienteCount = contarSancionesRecientes(sanciones);
+        if (sancionRecienteCount <= 0) {
+            return 0;
+        }
+        return Math.min(TOPE_PENALIZACION, sancionRecienteCount * PUNTOS_POR_SANCION);
+    }
+
+    private int contarSancionesRecientes(List<Sancion> sanciones) {
+        if (sanciones == null || sanciones.isEmpty()) {
+            return 0;
+        }
+        LocalDate hace12Meses = LocalDate.now().minusMonths(12);
+        return (int) sanciones.stream()
+                .filter(s -> s != null && s.fechaSancion() != null && s.fechaSancion().isAfter(hace12Meses))
+                .count();
     }
 
     @Override
     public String getNombreRegla() {
         return NOMBRE_REGLA;
+    }
+
+    @Override
+    public String getFuente() {
+        return "INDECOPI";
     }
 }

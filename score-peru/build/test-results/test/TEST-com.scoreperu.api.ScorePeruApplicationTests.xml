@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.scoreperu.api.ScorePeruApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-10-01T23:11:57" hostname="Bolsadepapass-MacBook-Air.local" time="0.382">
+<testsuite name="com.scoreperu.api.ScorePeruApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-11-17T21:57:29" hostname="Bolsadepapass-MacBook-Air.local" time="0.391">
   <properties/>
-  <testcase name="contextLoads()" classname="com.scoreperu.api.ScorePeruApplicationTests" time="0.382"/>
-  <system-out><![CDATA[18:11:57.075 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.scoreperu.api.ScorePeruApplicationTests]: ScorePeruApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-18:11:57.109 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.scoreperu.api.ScorePeruApplication for test class com.scoreperu.api.ScorePeruApplicationTests
+  <testcase name="contextLoads()" classname="com.scoreperu.api.ScorePeruApplicationTests" time="0.391"/>
+  <system-out><![CDATA[16:57:27.836 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.scoreperu.api.ScorePeruApplicationTests]: ScorePeruApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+16:57:27.877 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.scoreperu.api.ScorePeruApplication for test class com.scoreperu.api.ScorePeruApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -13,9 +13,23 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.5)
 
-2026-10-01T18:11:57.245-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : Starting ScorePeruApplicationTests using Java 21.0.12.1 with PID 9367 (started by bolsadepapas in /Users/bolsadepapas/Desktop/Proyecto_QuS/score-peru)
-2026-10-01T18:11:57.245-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : No active profile set, falling back to 1 default profile: "default"
-2026-10-01T18:11:57.664-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.api.ScorePeruApplicationTests        : Started ScorePeruApplicationTests in 0.509 seconds (process running for 0.941)
+2026-11-17T16:57:28.063-05:00  INFO 30062 --- [    Test worker] c.s.api.ScorePeruApplicationTests        : Starting ScorePeruApplicationTests using Java 21.0.12.1 with PID 30062 (started by bolsadepapas in /Users/bolsadepapas/Desktop/Proyecto_QuS/score-peru)
+2026-11-17T16:57:28.063-05:00  INFO 30062 --- [    Test worker] c.s.api.ScorePeruApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2026-11-17T16:57:28.331-05:00  INFO 30062 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-17T16:57:28.356-05:00  INFO 30062 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 1 JPA repository interface.
+2026-11-17T16:57:28.546-05:00  INFO 30062 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-11-17T16:57:28.574-05:00  INFO 30062 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2026-11-17T16:57:28.588-05:00  INFO 30062 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-11-17T16:57:28.686-05:00  INFO 30062 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-17T16:57:28.698-05:00  INFO 30062 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-11-17T16:57:28.779-05:00  INFO 30062 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:scoreperu_db user=SA
+2026-11-17T16:57:28.780-05:00  INFO 30062 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-11-17T16:57:28.794-05:00  WARN 30062 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-11-17T16:57:29.173-05:00  INFO 30062 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-17T16:57:29.190-05:00  INFO 30062 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-17T16:57:29.320-05:00  INFO 30062 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-11-17T16:57:29.662-05:00  WARN 30062 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-17T16:57:29.831-05:00  INFO 30062 --- [    Test worker] c.s.api.ScorePeruApplicationTests        : Started ScorePeruApplicationTests in 1.88 seconds (process running for 2.365)
 ]]></system-out>
   <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (/Users/bolsadepapas/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.14.13/979ce25f7d3096a2e82214ba7dc972a05ce7a171/byte-buddy-agent-1.14.13.jar)
 WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning

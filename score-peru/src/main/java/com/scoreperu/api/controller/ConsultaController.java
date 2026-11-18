@@ -7,8 +7,11 @@ import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.concurrent.CompletableFuture;
+
 @RestController
 @RequestMapping("/api/v1/consulta")
+@SuppressWarnings("null")
 public class ConsultaController {
 
     private final ConsultaRucService consultaRucService;
@@ -18,14 +21,16 @@ public class ConsultaController {
     }
 
     @PostMapping
-    public ResponseEntity<ResponseReporteRiesgo> consultarRucPost(@Valid @RequestBody RequestConsultaRuc request) {
-        ResponseReporteRiesgo reporte = consultaRucService.consultarScoringRuc(request.ruc());
-        return ResponseEntity.ok(reporte);
+    public CompletableFuture<ResponseEntity<ResponseReporteRiesgo>> consultarRucPost(
+            @Valid @RequestBody RequestConsultaRuc request) {
+        return consultaRucService.consultarScoringRucAsync(request.ruc())
+                .thenApply(ResponseEntity::ok);
     }
 
     @GetMapping("/{ruc}")
-    public ResponseEntity<ResponseReporteRiesgo> consultarRucGet(@PathVariable String ruc) {
-        ResponseReporteRiesgo reporte = consultaRucService.consultarScoringRuc(ruc);
-        return ResponseEntity.ok(reporte);
+    public CompletableFuture<ResponseEntity<ResponseReporteRiesgo>> consultarRucGet(
+            @PathVariable String ruc) {
+        return consultaRucService.consultarScoringRucAsync(ruc)
+                .thenApply(ResponseEntity::ok);
     }
 }

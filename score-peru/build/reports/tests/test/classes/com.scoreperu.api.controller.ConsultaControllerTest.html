@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">5</div>
+<div class="counter">7</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.091s</div>
+<div class="counter">1.084s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,33 +79,45 @@
 </tr>
 </thead>
 <tr>
-<td class="success">GET /api/v1/consulta/{ruc} con RUC impar debe descontar puntos por sanción</td>
+<td class="success">GET /api/v1/dashboard/stats debe retornar métricas agregadas del dashboard</td>
+<td class="success">testGetDashboardStats()</td>
+<td class="success">0.035s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">GET /api/v1/health debe retornar estado UP</td>
+<td class="success">testGetHealth()</td>
+<td class="success">0.005s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">GET /api/v1/consulta/{ruc} con RUC impar debe descontar puntos por sanción de forma asíncrona</td>
 <td class="success">testGetRucImparConSancion()</td>
-<td class="success">0.002s</td>
+<td class="success">0.328s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">GET /api/v1/consulta/{ruc} con RUC inválido (&lt;11 dígitos) debe retornar 400 Bad Request</td>
 <td class="success">testGetRucInvalidoLongitud()</td>
-<td class="success">0.002s</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">GET /api/v1/consulta/{ruc} con RUC que no inicia con 10 o 20 debe retornar 400 Bad Request</td>
-<td class="success">testGetRucInvalidoPrefijo()</td>
-<td class="success">0.052s</td>
+<td class="success">GET /api/v1/consulta/{ruc} con prefijo inválido (ej. 30) o Módulo 11 inválido debe retornar 400 Bad Request</td>
+<td class="success">testGetRucInvalidoPrefijoOModulo11()</td>
+<td class="success">0.005s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">GET /api/v1/consulta/{ruc} con RUC par debe retornar score 100 y riesgo BAJO</td>
+<td class="success">GET /api/v1/consulta/{ruc} con RUC par debe retornar score 100 y riesgo BAJO de forma asíncrona</td>
 <td class="success">testGetRucParScore100RiesgoBajo()</td>
-<td class="success">0.002s</td>
+<td class="success">0.322s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
-<td class="success">POST /api/v1/consulta con RUC válido debe procesar correctamente</td>
+<td class="success">POST /api/v1/consulta con RUC válido debe procesar correctamente de forma asíncrona</td>
 <td class="success">testPostRucValido()</td>
-<td class="success">0.033s</td>
+<td class="success">0.384s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -113,8 +125,8 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2026-10-01T18:11:58.054-05:00  INFO 9367 --- [score-peru] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.scoreperu.api.controller.ConsultaControllerTest]: ConsultaControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-10-01T18:11:58.060-05:00  INFO 9367 --- [score-peru] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.scoreperu.api.ScorePeruApplication for test class com.scoreperu.api.controller.ConsultaControllerTest
+<pre>2026-11-17T16:57:30.691-05:00  INFO 30062 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.scoreperu.api.controller.ConsultaControllerTest]: ConsultaControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-17T16:57:30.696-05:00  INFO 30062 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.scoreperu.api.ScorePeruApplication for test class com.scoreperu.api.controller.ConsultaControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -124,12 +136,33 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.5)
 
-2026-10-01T18:11:58.072-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.a.controller.ConsultaControllerTest  : Starting ConsultaControllerTest using Java 21.0.12.1 with PID 9367 (started by bolsadepapas in /Users/bolsadepapas/Desktop/Proyecto_QuS/score-peru)
-2026-10-01T18:11:58.073-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.a.controller.ConsultaControllerTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2026-10-01T18:11:58.167-05:00  INFO 9367 --- [score-peru] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2026-10-01T18:11:58.167-05:00  INFO 9367 --- [score-peru] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2026-10-01T18:11:58.168-05:00  INFO 9367 --- [score-peru] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2026-10-01T18:11:58.171-05:00  INFO 9367 --- [score-peru] [    Test worker] c.s.a.controller.ConsultaControllerTest  : Started ConsultaControllerTest in 0.11 seconds (process running for 1.448)
+2026-11-17T16:57:30.708-05:00  INFO 30062 --- [    Test worker] c.s.a.controller.ConsultaControllerTest  : Starting ConsultaControllerTest using Java 21.0.12.1 with PID 30062 (started by bolsadepapas in /Users/bolsadepapas/Desktop/Proyecto_QuS/score-peru)
+2026-11-17T16:57:30.708-05:00  INFO 30062 --- [    Test worker] c.s.a.controller.ConsultaControllerTest  : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2026-11-17T16:57:30.764-05:00  INFO 30062 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-11-17T16:57:30.769-05:00  INFO 30062 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 4 ms. Found 1 JPA repository interface.
+2026-11-17T16:57:30.808-05:00  INFO 30062 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-11-17T16:57:30.809-05:00  INFO 30062 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-11-17T16:57:30.810-05:00  INFO 30062 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-11-17T16:57:30.811-05:00  INFO 30062 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2026-11-17T16:57:30.811-05:00  INFO 30062 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection conn10: url=jdbc:h2:mem:scoreperu_db user=SA
+2026-11-17T16:57:30.811-05:00  INFO 30062 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2026-11-17T16:57:30.811-05:00  WARN 30062 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-11-17T16:57:30.835-05:00  INFO 30062 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-11-17T16:57:30.837-05:00  INFO 30062 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-11-17T16:57:30.872-05:00  WARN 30062 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-11-17T16:57:30.944-05:00  INFO 30062 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-17T16:57:30.944-05:00  INFO 30062 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-17T16:57:30.944-05:00  INFO 30062 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-11-17T16:57:30.950-05:00  INFO 30062 --- [    Test worker] c.s.a.controller.ConsultaControllerTest  : Started ConsultaControllerTest in 0.252 seconds (process running for 3.485)
+2026-11-17T16:57:30.997-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 20600012348. Despachando consulta asíncrona...
+2026-11-17T16:57:30.998-05:00  INFO 30062 --- [               ] c.s.a.c.ClienteConsultaExternaSimulado   : Simulando latencia de red externa SUNAT/INDECOPI (300 ms)...
+2026-11-17T16:57:31.307-05:00  INFO 30062 --- [               ] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Nuevo Registro de Caché GUARDADO para RUC: 20600012348
+2026-11-17T16:57:31.340-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 10123456781. Despachando consulta asíncrona...
+2026-11-17T16:57:31.340-05:00  INFO 30062 --- [               ] c.s.a.c.ClienteConsultaExternaSimulado   : Simulando latencia de red externa SUNAT/INDECOPI (300 ms)...
+2026-11-17T16:57:31.657-05:00  INFO 30062 --- [               ] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Nuevo Registro de Caché GUARDADO para RUC: 10123456781
+2026-11-17T16:57:31.678-05:00  WARN 30062 --- [    Test worker] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; CACHE MISS / EXPIRADO para RUC 20123456786. Despachando consulta asíncrona...
+2026-11-17T16:57:31.679-05:00  INFO 30062 --- [               ] c.s.a.c.ClienteConsultaExternaSimulado   : Simulando latencia de red externa SUNAT/INDECOPI (300 ms)...
+2026-11-17T16:57:31.990-05:00  INFO 30062 --- [               ] c.s.api.service.ConsultaRucService       : &gt;&gt;&gt; Nuevo Registro de Caché GUARDADO para RUC: 20123456786
 </pre>
 </span>
 </div>
@@ -141,7 +174,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.8</a> at 1 oct. 2026 18:11:58</p>
+<a href="http://www.gradle.org">Gradle 8.8</a> at 17 nov. 2026 16:57:32</p>
 </div>
 </div>
 </body>

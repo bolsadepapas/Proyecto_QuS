@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:scoreperu_local;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    open-in-view: false
+  threads:
+    virtual:
+      enabled: true
+
+server:
+  port: 8080
+
+app:
+  cache:
+    ttl-dias: 6
+  cliente:
+    externo:
+      modo: ${APP_CLIENTE_EXTERNO_MODO:simulado}
+      url-base: ${API_QUS_URL:http://localhost:8000}
+      latencia-ms: ${APP_CLIENTE_EXTERNO_LATENCIA_MS:300}
