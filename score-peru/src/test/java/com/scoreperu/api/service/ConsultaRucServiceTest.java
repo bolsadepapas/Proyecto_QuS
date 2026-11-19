@@ -12,6 +12,8 @@ import com.scoreperu.api.scoring.ReglaScoring;
 import com.scoreperu.api.scoring.rules.ReglaCondicionDomicilio;
 import com.scoreperu.api.scoring.rules.ReglaEstadoNoActivo;
 import com.scoreperu.api.scoring.rules.ReglaInhabilitacionVigente;
+import com.scoreperu.api.scoring.rules.ReglaMultaSeveraIndecopi;
+import com.scoreperu.api.scoring.rules.ReglaReincidenciaIndecopi;
 import com.scoreperu.api.scoring.rules.ReglaSancionIndecopi;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -52,6 +54,8 @@ class ConsultaRucServiceTest {
                 new ReglaEstadoNoActivo(),
                 new ReglaCondicionDomicilio(),
                 new ReglaSancionIndecopi(),
+                new ReglaMultaSeveraIndecopi(),
+                new ReglaReincidenciaIndecopi(),
                 new ReglaInhabilitacionVigente());
         MotorScoringService motorScoringService = new MotorScoringService(reglas);
         consultaRucService = new ConsultaRucService(
@@ -275,5 +279,36 @@ class ConsultaRucServiceTest {
         assertThrows(RucInvalidoException.class, () -> consultaRucService.consultarScoringRuc("20100190795")); // Módulo 11 inválido
         assertThrows(RucInvalidoException.class, () -> consultaRucService.consultarScoringRuc(""));
         assertThrows(RucInvalidoException.class, () -> consultaRucService.consultarScoringRuc(null));
+    }
+
+    @Test
+    @DisplayName("Entidad bancaria con alta carga de sanciones y multas >50 UIT en INDECOPI (Scotiabank 20100043140) obtiene Riesgo ALTO (25 pts)")
+    void testScotiabankAltaCargaSancionesYMultasObtieneRiesgoAlto() {
+        String ruc = "20100043140";
+        Contribuyente scotiabank = new Contribuyente(ruc, "SCOTIABANK PERU S.A.A.", "ACTIVO", "HABIDO", false, LocalDate.of(1943, 5, 2));
+        List<Sancion> diezSancionesGraves = List.of(
+                new Sancion("3142-2024/SPC", "INDECOPI", "Operaciones no reconocidas", LocalDate.of(2024, 11, 28), 18.5),
+                new Sancion("2890-2024/CC1", "INDECOPI", "Cobros indebidos", LocalDate.of(2024, 10, 19), 12.0),
+                new Sancion("2615-2024/CC2", "INDECOPI", "Falta de idoneidad", LocalDate.of(2024, 9, 14), 10.4),
+                new Sancion("2190-2024/CC1", "INDECOPI", "Falta de atención a reclamos", LocalDate.of(2024, 8, 5), 8.6),
+                new Sancion("1844-2024/SPC", "INDECOPI", "Reporte indebido CEP", LocalDate.of(2024, 7, 11), 7.5),
+                new Sancion("1520-2024/CC2", "INDECOPI", "Cobranza abusiva", LocalDate.of(2024, 6, 3), 6.5),
+                new Sancion("1198-2024/CC1", "INDECOPI", "Incumplimiento medida correctiva", LocalDate.of(2024, 5, 17), 5.0),
+                new Sancion("0985-2024/CC2", "INDECOPI", "Modificación contractual", LocalDate.of(2024, 4, 22), 4.2),
+                new Sancion("0654-2024/CC1", "INDECOPI", "Constancia no adeudo", LocalDate.of(2024, 3, 10), 3.5),
+                new Sancion("0312-2024/CC2", "INDECOPI", "Libro de reclamaciones", LocalDate.of(2024, 2, 8), 2.8)
+        );
+
+        when(consultaRucRepository.findByRuc(ruc)).thenReturn(Optional.empty());
+        when(clienteConsultaExterna.obtenerDatosIntegrados(ruc))
+                .thenReturn(new ClienteConsultaExterna.DatosExternosRuc(scotiabank, diezSancionesGraves));
+
+        ResponseReporteRiesgo resultado = consultaRucService.consultarScoringRuc(ruc);
+
+        assertNotNull(resultado);
+        assertEquals("SCOTIABANK PERU S.A.A.", resultado.razonSocial());
+        assertEquals(25, resultado.puntajeRiesgo()); // 100 - 30 (R03) - 25 (R04 >=50 UIT) - 20 (R05 >=10 sanciones)
+        assertEquals("ALTO", resultado.nivelRiesgo());
+        assertEquals(3, resultado.detalleReglas().size());
     }
 }

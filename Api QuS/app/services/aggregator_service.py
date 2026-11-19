@@ -40,6 +40,21 @@ class AggregatorService:
         sunat_res = futuro_sunat.result()
         indecopi_res = futuro_indecopi.result()
 
+        # Si SUNAT devolvió un nombre genérico de contingencia (por bloqueo Cloudflare 403),
+        # enriquecemos la razón social con el nombre oficial registrado en INDECOPI
+        if (
+            indecopi_res.razon_social
+            and indecopi_res.razon_social.strip()
+            and not indecopi_res.razon_social.strip().startswith("CONTRIBUYENTE ")
+            and (
+                sunat_res.fuente_datos == "PADRON_ESTANDAR_SUNAT"
+                or sunat_res.razon_social.startswith("EMPRESA COMERCIAL RUC ")
+                or sunat_res.razon_social.startswith("CONTRIBUYENTE ")
+            )
+        ):
+            sunat_res.razon_social = indecopi_res.razon_social.strip()
+            sunat_res.nombre_comercial = indecopi_res.razon_social.strip()
+
         # Adaptación para contratos de Score Perú
         contribuyente_sp = sunat_client.adaptar_para_score_peru(sunat_res)
         sanciones_sp = indecopi_client.adaptar_para_score_peru(indecopi_res)

@@ -57,7 +57,10 @@ public class ConsultaRucService {
         // 1. Verificación inicial en Caché
         Optional<ConsultaRucCache> cacheOpt = consultaRucRepository.findByRuc(rucLimpio);
 
-        if (cacheOpt.isPresent() && !cacheOpt.get().isExpirado(ttlDias)) {
+        if (cacheOpt.isPresent()
+                && !cacheOpt.get().isExpirado(ttlDias)
+                && cacheOpt.get().getRazonSocial() != null
+                && !cacheOpt.get().getRazonSocial().startsWith("EMPRESA COMERCIAL RUC ")) {
             // CACHE HIT: RNF-03 cumplido (< 2.5s, tiempo real ~15ms)
             ConsultaRucCache cache = cacheOpt.get();
             log.info(">>> CACHE HIT para RUC {} (Registrado: {})", rucLimpio, cache.getFechaConsulta());

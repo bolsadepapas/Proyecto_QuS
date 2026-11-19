@@ -9,6 +9,8 @@ import {
   companyInitials,
   extractApiErrorMessage,
   formatSanctionAmount,
+  gaugeAngle,
+  gaugeColor,
   isCacheLimited,
   normalizeText,
   riskClass,
@@ -58,9 +60,14 @@ import {
         <div class="result-grid">
           <div class="result-main-column">
             <article class="panel score-panel">
-              <div class="score-gauge" [style.--score-angle]="(data.puntajeRiesgo * 3.6) + 'deg'">
+              <div
+                class="score-gauge"
+                [class]="'score-gauge ' + riskClass(data.nivelRiesgo)"
+                [style.--score-angle]="gaugeAngle(data.puntajeRiesgo)"
+                [style.--gauge-color]="gaugeColor(data.puntajeRiesgo, data.nivelRiesgo)"
+              >
                 <div>
-                  <strong>{{ data.puntajeRiesgo }}</strong>
+                  <strong [style.color]="gaugeColor(data.puntajeRiesgo, data.nivelRiesgo)">{{ data.puntajeRiesgo }}</strong>
                   <span>de 100 puntos</span>
                 </div>
               </div>
@@ -211,6 +218,8 @@ export class ResultComponent implements OnInit, OnDestroy {
   readonly riskLabel = riskLabel;
   readonly normalize = normalizeText;
   readonly clampScore = clampScore;
+  readonly gaugeAngle = gaugeAngle;
+  readonly gaugeColor = gaugeColor;
   readonly scoreHeading = scoreHeading;
   readonly cacheLimited = isCacheLimited;
   readonly sanctionAmount = formatSanctionAmount;

@@ -40,9 +40,10 @@ import {
       </form>
       <p class="helper">
         Ingresa el RUC de 11 dígitos (inicia con 10, 15, 17 o 20 y cumple Módulo 11) · Ejemplos rápidos:
-        <button type="button" class="text-button" (click)="quickSearch('20100190797')">20100190797 (Gloria)</button> ·
         <button type="button" class="text-button" (click)="quickSearch('20100055237')">20100055237 (Alicorp)</button> ·
+        <button type="button" class="text-button" (click)="quickSearch('20100190797')">20100190797 (Gloria)</button> ·
         <button type="button" class="text-button" (click)="quickSearch('20555666978')">20555666978 (Riesgo Medio)</button> ·
+        <button type="button" class="text-button" (click)="quickSearch('20100043140')">20100043140 (Scotiabank)</button> ·
         <button type="button" class="text-button" (click)="quickSearch('20999888781')">20999888781 (Riesgo Alto)</button>
       </p>
       @if (searchError()) {

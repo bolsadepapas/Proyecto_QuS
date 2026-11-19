@@ -3,7 +3,10 @@ Punto de Entrada Principal de la API (Api QuS)
 Proyecto de Calidad de Software - Score Perú
 """
 import logging
+import warnings
 from fastapi import FastAPI, Request
+
+warnings.filterwarnings("ignore", message=".*urllib3 v2 only supports OpenSSL.*")
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 

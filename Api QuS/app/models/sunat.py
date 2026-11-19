@@ -24,5 +24,6 @@ class SunatContribuyenteResponse(BaseModel):
     sistema_emision_electronica: List[str] = Field(default_factory=list, description="Sistemas de emisión electrónica autorizados")
     es_activo: bool = Field(True, description="Flag booleano que indica si estado == ACTIVO")
     es_habido: bool = Field(True, description="Flag booleano que indica si condicion == HABIDO")
+    inhabilitado: bool = Field(False, description="Indica si el contribuyente mantiene inhabilitación vigente")
     fuente_datos: str = Field("SUNAT_PORTAL", description="Identificador de la fuente: SUNAT_PORTAL o PADRON_REDUCIDO")
 

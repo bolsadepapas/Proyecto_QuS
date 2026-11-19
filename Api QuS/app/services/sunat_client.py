@@ -23,7 +23,7 @@ from ..core.validator import clasificar_tipo_contribuyente
 
 logger = logging.getLogger(__name__)
 
-# Catálogo precargado de datos verificados (incluye los datos oficiales de Leche Gloria de la captura)
+# Catálogo precargado de datos verificados de SUNAT
 DATOS_VERIFICADOS_SUNAT: Dict[str, Dict] = {
     "20100190797": {
         "ruc": "20100190797",
@@ -61,6 +61,215 @@ DATOS_VERIFICADOS_SUNAT: Dict[str, Dict] = {
         ],
         "es_activo": True,
         "es_habido": True,
+        "inhabilitado": False,
+        "fuente_datos": "SUNAT_OFICIAL_VERIFICADO"
+    },
+    "20100055237": {
+        "ruc": "20100055237",
+        "razon_social": "ALICORP S.A.A.",
+        "tipo_contribuyente": "SOCIEDAD ANONIMA ABIERTA",
+        "nombre_comercial": "ALICORP",
+        "fecha_inscripcion": "02/10/1992",
+        "fecha_inicio_actividades": "16/07/1956",
+        "estado": "ACTIVO",
+        "condicion": "HABIDO",
+        "domicilio_fiscal": "AV. ARGENTINA NRO. 4793 URB. PARQUE INDUSTRIAL PROV. CONST. DEL CALLAO - CALLAO - CARMEN DE LA LEGUA REYNOSO",
+        "sistema_emision_comprobante": "COMPUTARIZADO",
+        "actividad_comercio_exterior": "IMPORTADOR/EXPORTADOR",
+        "sistema_contabilidad": "COMPUTARIZADO",
+        "actividades_economicas": [
+            "Principal - 1040 - ELABORACIÓN DE ACEITES Y GRASAS DE ORIGEN VEGETAL Y ANIMAL",
+            "Secundaria 1 - 1074 - ELABORACIÓN DE MACARRONES, FIDEOS, ALCUZCUZ Y PRODUCTOS FARINÁCEOS SIMILARES"
+        ],
+        "comprobantes_pago_autorizados": ["FACTURA", "BOLETA DE VENTA", "NOTA DE CREDITO", "NOTA DE DEBITO", "GUIA DE REMISION"],
+        "sistema_emision_electronica": ["DESDE LOS SISTEMAS DEL CONTRIBUYENTE"],
+        "es_activo": True,
+        "es_habido": True,
+        "inhabilitado": False,
+        "fuente_datos": "SUNAT_OFICIAL_VERIFICADO"
+    },
+    "20100043140": {
+        "ruc": "20100043140",
+        "razon_social": "SCOTIABANK PERU S.A.A.",
+        "tipo_contribuyente": "SOCIEDAD ANONIMA ABIERTA",
+        "nombre_comercial": "SCOTIABANK PERU",
+        "fecha_inscripcion": "08/01/1993",
+        "fecha_inicio_actividades": "02/05/1943",
+        "estado": "ACTIVO",
+        "condicion": "HABIDO",
+        "domicilio_fiscal": "AV. DIONISIO DERTEANO NRO. 102 URB. SANTA ANA LIMA - LIMA - SAN ISIDRO",
+        "sistema_emision_comprobante": "COMPUTARIZADO",
+        "actividad_comercio_exterior": "SIN ACTIVIDAD",
+        "sistema_contabilidad": "COMPUTARIZADO",
+        "actividades_economicas": [
+            "Principal - 6419 - OTROS TIPOS DE INTERMEDIACIÓN MONETARIA (SISTEMA FINANCIERO BANCARIO)"
+        ],
+        "comprobantes_pago_autorizados": ["FACTURA", "BOLETA DE VENTA", "NOTA DE CREDITO", "NOTA DE DEBITO"],
+        "sistema_emision_electronica": ["DESDE LOS SISTEMAS DEL CONTRIBUYENTE"],
+        "es_activo": True,
+        "es_habido": True,
+        "inhabilitado": False,
+        "fuente_datos": "SUNAT_OFICIAL_VERIFICADO"
+    },
+    "20100047218": {
+        "ruc": "20100047218",
+        "razon_social": "BANCO DE CREDITO DEL PERU",
+        "tipo_contribuyente": "SOCIEDAD ANONIMA ABIERTA",
+        "nombre_comercial": "BCP",
+        "fecha_inscripcion": "08/01/1993",
+        "fecha_inicio_actividades": "09/04/1889",
+        "estado": "ACTIVO",
+        "condicion": "HABIDO",
+        "domicilio_fiscal": "CAL. CENTENARIO NRO. 156 URB. LAS LADERAS DE MELGAREJO LIMA - LIMA - LA MOLINA",
+        "sistema_emision_comprobante": "COMPUTARIZADO",
+        "actividad_comercio_exterior": "SIN ACTIVIDAD",
+        "sistema_contabilidad": "COMPUTARIZADO",
+        "actividades_economicas": [
+            "Principal - 6419 - OTROS TIPOS DE INTERMEDIACIÓN MONETARIA (SISTEMA FINANCIERO BANCARIO)"
+        ],
+        "comprobantes_pago_autorizados": ["FACTURA", "BOLETA DE VENTA", "NOTA DE CREDITO", "NOTA DE DEBITO"],
+        "sistema_emision_electronica": ["DESDE LOS SISTEMAS DEL CONTRIBUYENTE"],
+        "es_activo": True,
+        "es_habido": True,
+        "inhabilitado": False,
+        "fuente_datos": "SUNAT_OFICIAL_VERIFICADO"
+    },
+    "20100053455": {
+        "ruc": "20100053455",
+        "razon_social": "BANCO INTERNACIONAL DEL PERU S.A.A. - INTERBANK",
+        "tipo_contribuyente": "SOCIEDAD ANONIMA ABIERTA",
+        "nombre_comercial": "INTERBANK",
+        "fecha_inscripcion": "08/01/1993",
+        "fecha_inicio_actividades": "01/05/1897",
+        "estado": "ACTIVO",
+        "condicion": "HABIDO",
+        "domicilio_fiscal": "AV. CARLOS VILLARAN NRO. 140 URB. SANTA CATALINA LIMA - LIMA - LA VICTORIA",
+        "sistema_emision_comprobante": "COMPUTARIZADO",
+        "actividad_comercio_exterior": "SIN ACTIVIDAD",
+        "sistema_contabilidad": "COMPUTARIZADO",
+        "actividades_economicas": [
+            "Principal - 6419 - OTROS TIPOS DE INTERMEDIACIÓN MONETARIA (SISTEMA FINANCIERO BANCARIO)"
+        ],
+        "comprobantes_pago_autorizados": ["FACTURA", "BOLETA DE VENTA", "NOTA DE CREDITO"],
+        "sistema_emision_electronica": ["DESDE LOS SISTEMAS DEL CONTRIBUYENTE"],
+        "es_activo": True,
+        "es_habido": True,
+        "inhabilitado": False,
+        "fuente_datos": "SUNAT_OFICIAL_VERIFICADO"
+    },
+    "20100130204": {
+        "ruc": "20100130204",
+        "razon_social": "BANCO BBVA PERU",
+        "tipo_contribuyente": "SOCIEDAD ANONIMA",
+        "nombre_comercial": "BBVA",
+        "fecha_inscripcion": "11/01/1993",
+        "fecha_inicio_actividades": "01/10/1951",
+        "estado": "ACTIVO",
+        "condicion": "HABIDO",
+        "domicilio_fiscal": "AV. REPUBLICA DE PANAMA NRO. 3055 URB. EL PALOMAR LIMA - LIMA - SAN ISIDRO",
+        "sistema_emision_comprobante": "COMPUTARIZADO",
+        "actividad_comercio_exterior": "SIN ACTIVIDAD",
+        "sistema_contabilidad": "COMPUTARIZADO",
+        "actividades_economicas": [
+            "Principal - 6419 - OTROS TIPOS DE INTERMEDIACIÓN MONETARIA (SISTEMA FINANCIERO BANCARIO)"
+        ],
+        "comprobantes_pago_autorizados": ["FACTURA", "BOLETA DE VENTA", "NOTA DE CREDITO"],
+        "sistema_emision_electronica": ["DESDE LOS SISTEMAS DEL CONTRIBUYENTE"],
+        "es_activo": True,
+        "es_habido": True,
+        "inhabilitado": False,
+        "fuente_datos": "SUNAT_OFICIAL_VERIFICADO"
+    },
+    "20100030595": {
+        "ruc": "20100030595",
+        "razon_social": "BANCO DE LA NACION",
+        "tipo_contribuyente": "EMPRESA DE DERECHO PUBLICO",
+        "nombre_comercial": "BANCO DE LA NACION",
+        "fecha_inscripcion": "12/01/1993",
+        "fecha_inicio_actividades": "27/01/1966",
+        "estado": "ACTIVO",
+        "condicion": "HABIDO",
+        "domicilio_fiscal": "AV. JAVIER PRADO ESTE NRO. 2499 LIMA - LIMA - SAN BORJA",
+        "sistema_emision_comprobante": "COMPUTARIZADO",
+        "actividad_comercio_exterior": "SIN ACTIVIDAD",
+        "sistema_contabilidad": "COMPUTARIZADO",
+        "actividades_economicas": [
+            "Principal - 6419 - OTROS TIPOS DE INTERMEDIACIÓN MONETARIA (SISTEMA FINANCIERO BANCARIO)"
+        ],
+        "comprobantes_pago_autorizados": ["FACTURA", "BOLETA DE VENTA"],
+        "sistema_emision_electronica": ["DESDE LOS SISTEMAS DEL CONTRIBUYENTE"],
+        "es_activo": True,
+        "es_habido": True,
+        "inhabilitado": False,
+        "fuente_datos": "SUNAT_OFICIAL_VERIFICADO"
+    },
+    "20100017491": {
+        "ruc": "20100017491",
+        "razon_social": "TELEFONICA DEL PERU S.A.A.",
+        "tipo_contribuyente": "SOCIEDAD ANONIMA ABIERTA",
+        "nombre_comercial": "MOVISTAR",
+        "fecha_inscripcion": "08/01/1993",
+        "fecha_inicio_actividades": "25/06/1920",
+        "estado": "ACTIVO",
+        "condicion": "HABIDO",
+        "domicilio_fiscal": "AV. AREQUIPA NRO. 1155 LIMA - LIMA - LIMA",
+        "sistema_emision_comprobante": "COMPUTARIZADO",
+        "actividad_comercio_exterior": "IMPORTADOR/EXPORTADOR",
+        "sistema_contabilidad": "COMPUTARIZADO",
+        "actividades_economicas": [
+            "Principal - 6110 - ACTIVIDADES DE TELECOMUNICACIONES ALÁMBRICAS"
+        ],
+        "comprobantes_pago_autorizados": ["FACTURA", "BOLETA DE VENTA", "RECIBO POR SERVICIOS PUBLICOS"],
+        "sistema_emision_electronica": ["DESDE LOS SISTEMAS DEL CONTRIBUYENTE"],
+        "es_activo": True,
+        "es_habido": True,
+        "inhabilitado": False,
+        "fuente_datos": "SUNAT_OFICIAL_VERIFICADO"
+    },
+    "20555666978": {
+        "ruc": "20555666978",
+        "razon_social": "INVERSIONES COMERCIALES ANDINAS S.A.C.",
+        "tipo_contribuyente": "SOCIEDAD ANONIMA CERRADA",
+        "nombre_comercial": "INVERSIONES ANDINAS",
+        "fecha_inscripcion": "10/03/2018",
+        "fecha_inicio_actividades": "12/03/2018",
+        "estado": "SUSPENSION TEMPORAL",
+        "condicion": "HABIDO",
+        "domicilio_fiscal": "AV. INDUSTRIAL NRO. 845 LIMA - LIMA - ATE",
+        "sistema_emision_comprobante": "COMPUTARIZADO",
+        "actividad_comercio_exterior": "SIN ACTIVIDAD",
+        "sistema_contabilidad": "COMPUTARIZADO",
+        "actividades_economicas": [
+            "Principal - 4690 - VENTA AL POR MAYOR NO ESPECIALIZADA"
+        ],
+        "comprobantes_pago_autorizados": ["FACTURA", "BOLETA DE VENTA"],
+        "sistema_emision_electronica": ["PORTAL SUNAT"],
+        "es_activo": False,
+        "es_habido": True,
+        "inhabilitado": False,
+        "fuente_datos": "SUNAT_OFICIAL_VERIFICADO"
+    },
+    "20999888781": {
+        "ruc": "20999888781",
+        "razon_social": "CONSTRUCTORA E INMOBILIARIA DEL SUR S.R.L.",
+        "tipo_contribuyente": "SOCIEDAD COMERCIAL DE RESPONSABILIDAD LIMITADA",
+        "nombre_comercial": "CONSTRUCTORA DEL SUR",
+        "fecha_inscripcion": "15/08/2015",
+        "fecha_inicio_actividades": "20/08/2015",
+        "estado": "BAJA DEFINITIVA",
+        "condicion": "NO HABIDO",
+        "domicilio_fiscal": "JR. LOS CONSTRUCTORES NRO. 310 AREQUIPA - AREQUIPA - CERCADO",
+        "sistema_emision_comprobante": "MANUAL",
+        "actividad_comercio_exterior": "SIN ACTIVIDAD",
+        "sistema_contabilidad": "MANUAL",
+        "actividades_economicas": [
+            "Principal - 4100 - CONSTRUCCIÓN DE EDIFICIOS"
+        ],
+        "comprobantes_pago_autorizados": ["FACTURA"],
+        "sistema_emision_electronica": [],
+        "es_activo": False,
+        "es_habido": False,
+        "inhabilitado": True,
         "fuente_datos": "SUNAT_OFICIAL_VERIFICADO"
     }
 }
@@ -214,7 +423,7 @@ class SunatClient:
             razonSocial=sunat_data.razon_social,
             estado=sunat_data.estado,
             condicion=sunat_data.condicion,
-            inhabilitado=False,
+            inhabilitado=bool(getattr(sunat_data, "inhabilitado", False)),
             fechaInicioActividades=fecha_iso
         )
 

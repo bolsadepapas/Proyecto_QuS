@@ -41,7 +41,10 @@ export class HistorialService {
       return [];
     }
     try {
-      return JSON.parse(raw) as HistorialItem[];
+      const items = JSON.parse(raw) as HistorialItem[];
+      return items.filter(
+        item => item && item.ruc && !(item.razonSocial ?? '').startsWith('EMPRESA COMERCIAL RUC '),
+      );
     } catch {
       return [];
     }

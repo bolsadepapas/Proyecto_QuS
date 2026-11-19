@@ -43,7 +43,7 @@ public class ConsultaRucCache {
     private List<String> reglasActivadas = new ArrayList<>();
 
     @Convert(converter = SancionListConverter.class)
-    @Column(name = "sanciones_json", length = 4000)
+    @Column(name = "sanciones_json", columnDefinition = "TEXT")
     private List<SancionDto> sanciones = new ArrayList<>();
 
     @Column(name = "fecha_inicio_actividades")

@@ -69,3 +69,26 @@ def test_consulta_ruc_invalido_retorna_400():
     data = response.json()
     assert data["detail"]["error"] == "RUC_INVALIDO"
 
+
+def test_consulta_scotiabank_retorna_razon_social_y_sanciones():
+    response = client.get("/api/v1/consulta/20100043140")
+    assert response.status_code == 200
+    data = response.json()
+    assert data["ruc"] == "20100043140"
+    assert "SCOTIABANK" in data["contribuyente"]["razonSocial"]
+    assert len(data["sanciones"]) >= 5
+
+
+def test_consulta_riesgo_medio_y_alto_retornan_estados_reales():
+    res_medio = client.get("/api/v1/consulta/20555666978").json()
+    assert res_medio["contribuyente"]["razonSocial"] == "INVERSIONES COMERCIALES ANDINAS S.A.C."
+    assert res_medio["contribuyente"]["estado"] == "SUSPENSION TEMPORAL"
+
+    res_alto = client.get("/api/v1/consulta/20999888781").json()
+    assert res_alto["contribuyente"]["razonSocial"] == "CONSTRUCTORA E INMOBILIARIA DEL SUR S.R.L."
+    assert res_alto["contribuyente"]["estado"] == "BAJA DEFINITIVA"
+    assert res_alto["contribuyente"]["condicion"] == "NO HABIDO"
+    assert res_alto["contribuyente"]["inhabilitado"] is True
+    assert len(res_alto["sanciones"]) >= 2
+
+

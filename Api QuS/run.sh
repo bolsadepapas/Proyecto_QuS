@@ -14,5 +14,5 @@ fi
 
 echo "🚀 Iniciando Api QuS en http://localhost:8000 ..."
 echo "📖 Swagger UI disponible en http://localhost:8000/docs"
-./.venv/bin/python3 -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+PYTHONWARNINGS="ignore" ./.venv/bin/python3 -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload --ws none
 

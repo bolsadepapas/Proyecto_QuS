@@ -85,6 +85,25 @@ export function clampScore(score: number): number {
   return Math.min(100, Math.max(0, Number(score) || 0));
 }
 
+export function gaugeAngle(score: number): string {
+  const clamped = clampScore(score);
+  // Si el puntaje es 0 (riesgo crítico), mostramos un arco mínimo de 18deg en rojo para que sea visible
+  const effectiveScore = clamped === 0 ? 5 : clamped;
+  return `${effectiveScore * 3.6}deg`;
+}
+
+export function gaugeColor(score: number, nivelRiesgo?: string | null): string {
+  const clamped = clampScore(score);
+  const norm = normalizeText(nivelRiesgo);
+  if (norm === 'BAJO' || clamped >= 80) {
+    return 'var(--green)';
+  }
+  if (norm === 'MEDIO' || (clamped >= 50 && clamped < 80)) {
+    return '#d08a14';
+  }
+  return 'var(--red)';
+}
+
 export function scoreHeading(data: ReporteRiesgo): string {
   if (data.nivelRiesgo === 'ALTO') return 'Se detectaron factores de riesgo';
   if (data.nivelRiesgo === 'MEDIO') return 'Hay aspectos que conviene revisar';

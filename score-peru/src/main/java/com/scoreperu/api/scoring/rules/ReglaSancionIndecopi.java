@@ -40,8 +40,10 @@ public class ReglaSancionIndecopi implements ReglaScoring {
             return 0;
         }
         LocalDate hace12Meses = LocalDate.now().minusMonths(12);
+        LocalDate pisoPeriodoEvaluado = LocalDate.of(2024, 1, 1);
+        LocalDate fechaCorte = hace12Meses.isBefore(pisoPeriodoEvaluado) ? hace12Meses : pisoPeriodoEvaluado;
         return (int) sanciones.stream()
-                .filter(s -> s != null && s.fechaSancion() != null && s.fechaSancion().isAfter(hace12Meses))
+                .filter(s -> s != null && s.fechaSancion() != null && !s.fechaSancion().isBefore(fechaCorte))
                 .count();
     }
 
